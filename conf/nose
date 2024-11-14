@@ -1,0 +1,5 @@
+Modificamos el archivo 000-default.conf con la directiva allOveride all
+Deshabilitar el virtualhost del puerto 443
+lanzamos el script ./install_lamp.sh
+lanzamos el script ./setup_letsencrypt_cetificate.sh
+lanzamos el script ./deploy

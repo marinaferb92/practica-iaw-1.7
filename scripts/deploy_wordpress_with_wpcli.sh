@@ -50,4 +50,12 @@ wp core install \
   --admin_password=admin_password \
   --admin_email=test@test.com \
   --path=/var/www/html \
-  --allow-root 
+  --allow-root
+
+#damos permisos a www-data
+chown -R www-data:www-data /var/www/html
+
+#configurar los enlaces permanentes con el nombre de las entradas
+wp rewrite structure '/%postname%/' \
+  --path=/var/www/html \
+  --allow-root

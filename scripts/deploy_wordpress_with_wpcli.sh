@@ -44,18 +44,31 @@ wp config create \
   --allow-root
 
 wp core install \
-  --url=practica-wordpress.ddns.net \
-  --title="IAW" \
-  --admin_user=admin \
-  --admin_password=admin_password \
-  --admin_email=test@test.com \
-  --path=/var/www/html \
+  --url=$LE_DOMAIN \
+  --title="$WORDPRESS_TITLE" \
+  --admin_user=$WORDPRESS_ADMIN_USER \
+  --admin_password=$WORDPRESS_ADMIN_PASS \
+  --admin_email=$WORDPRESS_ADMIN_EMAIL \
+  --path=$WORDPRESS_DIRECTORY \
   --allow-root
+
+#intalamos un tema 
+wp theme install mindscape --activate --path=$WORDPRESS_DIRECTORY --allow-root
+
+#instalamos un plugging
+wp plugin install wps-hide-login --activate --path=$WORDPRESS_DIRECTORY --allow-root
+
+#configuramos el plugging
+wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTORY --allow-root
+
+#configurar los enlaces permanentes con el nombre de las entradas
+wp rewrite structure '/%postname%/'  --path=$WORDPRESS_DIRECTORY --allow-root
+
+#Copiamos el archivo .htaccess
+cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY
 
 #damos permisos a www-data
 chown -R www-data:www-data /var/www/html
 
-#configurar los enlaces permanentes con el nombre de las entradas
-wp rewrite structure '/%postname%/' \
-  --path=/var/www/html \
-  --allow-root
+
+

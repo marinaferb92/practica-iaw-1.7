@@ -35,6 +35,7 @@ mysql -u root <<< "DROP USER IF EXISTS $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
 mysql -u root <<< "CREATE USER $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL IDENTIFIED BY '$WORDPRESS_DB_PASSWORD'"
 mysql -u root <<< "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME.* TO $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
 
+#Configuración de WordPress
 wp config create \
   --dbname=$WORDPRESS_DB_NAME \
   --dbuser=$WORDPRESS_DB_USER \
@@ -43,6 +44,7 @@ wp config create \
   --path=$WORDPRESS_DIRECTORY \
   --allow-root
 
+#Instalar WordPress
 wp core install \
   --url=$LE_DOMAIN \
   --title="$WORDPRESS_TITLE" \

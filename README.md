@@ -111,23 +111,50 @@ mv /tmp/wp-cli.phar /usr/local/bin/wp
 
 A continuación borraremos todos los archivos en el directorio donde se instalará Wordpress, asegurando que no queden archivos ni instalaciones anteriores que interfieran con la nueva instalación.
 
+- *$WORDPRESS_DIRECTORY* estará definida en el archivo .env como ````/var/www/html```` que será el directorio donde tiene que descargarse Wordpress.
+
 ````
 rm -rf $WORDPRESS_DIRECTORY*
 ````
 
-8. Descargamos el codigo fuente de Wordpress 
+8. Descargamos el codigo fuente de Wordpress
+
+Utilizamos el comando wp para realizar la descargas los archivos prncipales de Wordpress.
+- *--locale=es_ES* indicamos que queremos descargar la versión en Español.
+Si quisieramos otro idioma, podemos usar otros códigos:
+Inglés (predeterminado): --locale=en_US
+Francés: --locale=fr_FR
+Alemán: --locale=de_DE
+- path=$WORDPRESS_DIRECTORY indicamos que queremos descargar Wordpress en la ruta $WORDPRESS_DIRECTORY, variable que estará definida en el archivo .env.
+- *allow-root* indicamos que permitimos ejecutar Wordpress con el usuario root.
+
+````
 wp core download \
   --locale=es_ES \
   --path=$WORDPRESS_DIRECTORY \
   --allow-root
+````
 
-# Crear la base de datos y el usuario para Wordpress
+
+9. Crear la base de datos y el usuario para Wordpress
+
+**Configuramos la base de datos en MySQL usando comandos SQL enviados directamente a mysql. Cada línea tiene una función específica**:
+-Eliminar la base de datos existente.
+-Crear una nueva base de datos.
+-Eliminar el usuario existente.
+-Crear un nuevo usuario.
+-Otorgar permisos al usuario.
+
+Para esto deberemos configurar en el archivo ```` .env ```` las variables ```` WORDPRESS_DB_NAME, 
+ WORDPRESS_DB_USER, WORDPRESS_DB_PASSWORD, IP_CLIENTE_MYSQL, WORDPRESS_DB_HOST````
+
+````
 mysql -u root <<< "DROP DATABASE IF EXISTS $WORDPRESS_DB_NAME"
 mysql -u root <<< "CREATE DATABASE $WORDPRESS_DB_NAME"
 mysql -u root <<< "DROP USER IF EXISTS $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
 mysql -u root <<< "CREATE USER $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL IDENTIFIED BY '$WORDPRESS_DB_PASSWORD'"
 mysql -u root <<< "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME.* TO $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
-
+````
 wp config create \
   --dbname=$WORDPRESS_DB_NAME \
   --dbuser=$WORDPRESS_DB_USER \

@@ -59,28 +59,30 @@ Para la realizacion de este apartado seguiremos los pasos detallados en la pract
 # Instalación de WP-CLI en el servidor LAMP
 Tras los pasos anteriores y que se hayan ejecutado exitosamente los scripts ``` install_lamp.sh ``` y ``` setup_letsencrypt_certificate.sh ```, comenzaremos a desarrollar del script para la instalación y configuración de WP-CLI. A continuación explicamos todos los comandos que se utilizan en el script:
 
-1. Cargamos el archivo de variables
+### 1. Cargamos el archivo de variables
    
 El primer paso de nuestro script sera crear un archivo de variable ``` . env ``` donde iremos definiendo las diferentes variables que necesitemos, y cargarlo en el entorno del script.
 
 ``` source.env ```
 
 
-2. Configuramos el script
+### 2. Configuramos el script
    
 Configuraremos el script para que en caso de que haya errores en algun comando este se detenga ```-e```, ademas de que para que nos muestre los comando antes de ejecutarlos ```-x```.
 
 ``` set -ex ```
 
 
-3. Borramos descargas previas de WP-CLI
+### 3. Borramos descargas previas de WP-CLI
 
 Con este comando nos aseguramos de que se borre cualquier descarga anterior de Cli, por si tenemos que ejecutar el script varias veces que no haya mas paquetes de los necesarios ocupando espacio.
 
 ````
 rm -rf /tmp/wp-cli.phar
 ````
-4. Descargamos el archivo wp-cli.phar
+
+
+### 4. Descargamos el archivo wp-cli.phar
 
 Descargamos el ejecutable WP-CLI desde su repositorio oficial. 
 
@@ -88,7 +90,8 @@ Descargamos el ejecutable WP-CLI desde su repositorio oficial.
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P /tmp
 ````
 
-5. Asignamos permisos de ejecución al archivo
+
+### 5. Asignamos permisos de ejecución al archivo
 
 Le asignamos a archivo permisos de ejecución para que pueda ejecutarse como un programa.
 
@@ -97,7 +100,7 @@ chmod +x /tmp/wp-cli.phar
 ````
 
 
-6. Movemos el script WP-CLI al directorio /usr/local/bin
+### 6. Movemos el script WP-CLI al directorio /usr/local/bin
 
 Movemos desde */tmp/wp-cli.phar* a  */usr/local/bin* renombradolo como **wp**, colocandolo en un directorio global. Esto nos permitira utilizar ````wp```` como si fuera un comando sin tener que usar la ruta completa */tmp/wp-cli.phar* cada vez que queramos usar WP-CLI. 
 
@@ -107,7 +110,7 @@ mv /tmp/wp-cli.phar /usr/local/bin/wp
 ````
 
 
-7. Borramos instalaciones previas en /var/www/html
+### 7. Borramos instalaciones previas en /var/www/html
 
 A continuación borraremos todos los archivos en el directorio donde se instalará Wordpress, asegurando que no queden archivos ni instalaciones anteriores que interfieran con la nueva instalación.
 
@@ -117,7 +120,7 @@ A continuación borraremos todos los archivos en el directorio donde se instalar
 rm -rf $WORDPRESS_DIRECTORY*
 ````
 
-8. Descargamos el codigo fuente de Wordpress
+### 8. Descargamos el codigo fuente de Wordpress
 
 Utilizamos el comando wp para realizar la descargas los archivos prncipales de Wordpress.
 - *--locale=es_ES* indicamos que queremos descargar la versión en Español.
@@ -141,7 +144,7 @@ wp core download \
 ````
 
 
-9. Crear la base de datos y el usuario para Wordpress
+### 9. Crear la base de datos y el usuario para Wordpress
 
 **Configuramos la base de datos en MySQL usando comandos SQL enviados directamente a mysql. Cada línea tiene una función específica**:
 -Eliminar la base de datos existente.
@@ -161,7 +164,7 @@ mysql -u root <<< "CREATE USER $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL IDENTIFIED B
 mysql -u root <<< "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME.* TO $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
 ````
 
-10. Configuración de WordPress
+### 10. Configuración de WordPress
 
 A continuación, generaremos el archivo de configuración principal ``wp-config.php``, necesario para que Wordpress pueda conectarse a la base de datos.
 El archivo contendrá las configuraciones y credenciales básicas para que Wordpress interactue con MySQL.
@@ -192,7 +195,7 @@ wp config create \
 
  - Todas estas variables deberán estar definidas en nuestro archivo ``.env``.
    
-11. Instalar WordPress
+### 11. Instalar WordPress
 
 A continuación, completaremos la instalación de Wordpress con las tablas necesarias y las configuraciones de nombre del sitio, URL y las credenciales para el administrador.
 
@@ -232,17 +235,23 @@ wp plugin install wps-hide-login --activate --path=$WORDPRESS_DIRECTORY --allow-
 #configuramos el plugging
 wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTORY --allow-root
 
-#configurar los enlaces permanentes con el nombre de las entradas
+### 18. Configurar los enlaces permanentes con el nombre de las entradas
+
+Configuramos la estructura de los enlaces permanentes (URLs) de Wordpress para que usen el nombre de las entradas (*postname*). Para que el sitio en vez de tener URLs tipo:
+``https://example.com/?p=123``
+
+Utilice URLs más legibles como:
+https://example.com/nombre-del-post
+
+
+
 wp rewrite structure '/%postname%/'  --path=$WORDPRESS_DIRECTORY --allow-root
 
-#Copiamos el archivo .htaccess
+### 19. Copiamos el archivo .htaccess
 cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY
 
-#damos permisos a www-data
+### 20. damos permisos a www-data
 chown -R www-data:www-data /var/www/html
-
-
-
 
 
 

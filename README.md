@@ -238,14 +238,18 @@ wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTOR
 ### 18. Configurar los enlaces permanentes con el nombre de las entradas
 
 Configuramos la estructura de los enlaces permanentes (URLs) de Wordpress para que usen el nombre de las entradas (*postname*). Para que el sitio en vez de tener URLs tipo:
-``https://example.com/?p=123``
+
+``https://ejemplo.com/?p=123``
 
 Utilice URLs más legibles como:
-https://example.com/nombre-del-post
 
+``https://ejemplo.com/nombre-de-la-entrada``
 
+*Esta estructura además es más facil de entender tambien para los motores de busqueda y mejora la posición en los resultados de busqueda en estos, al incluir palabras cavles en URL.*
 
+``
 wp rewrite structure '/%postname%/'  --path=$WORDPRESS_DIRECTORY --allow-root
+``
 
 ### 19. Copiamos el archivo .htaccess
 cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY

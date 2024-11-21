@@ -182,8 +182,23 @@ wp config create \
   --path=$WORDPRESS_DIRECTORY \
   --allow-root
  `` 
+
+ - Todas estas variables deberán estar definidas en nuestro archivo ``.env``.
+   
 11. Instalar WordPress
 
+A continuación, completaremos la instalación de Wordpress con las tablas necesarias y las configuraciones de nombre del sitio, URL y las credenciales para el administrador.
+
+- <ins>url=$LE_DOMAIN</ins>: ponemos la dirección del dominio que hemos reservado, define la URL  principal del sitio.
+- <ins>title="$WORDPRESS_TITLE"</ins>: Definimos el nombre principal del sitio web.
+- <ins>admin_user=$WORDPRESS_ADMIN_USER</ins>: crea al usuario administrador de Wordpress.
+- <ins>admin_password=$WORDPRESS_ADMIN_PASS</ins>: definimos la contraseña del usuario administrador.
+- <ins>admin_email=$WORDPRESS_ADMIN_EMAIL</ins>: especificamos el correo del administrador.
+- <ins>path=$WORDPRESS_DIRECTORY</ins>: indicamos el directorio donde se instalará Wordpress.
+
+  -Estas variables estarán definidas dentro del archivo *.env*.
+  
+``
 wp core install \
   --url=$LE_DOMAIN \
   --title="$WORDPRESS_TITLE" \
@@ -192,6 +207,7 @@ wp core install \
   --admin_email=$WORDPRESS_ADMIN_EMAIL \
   --path=$WORDPRESS_DIRECTORY \
   --allow-root
+``
 
 #intalamos un tema 
 wp theme install mindscape --activate --path=$WORDPRESS_DIRECTORY --allow-root

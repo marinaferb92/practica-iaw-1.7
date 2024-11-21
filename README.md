@@ -78,30 +78,44 @@ Configuraremos el script para que en caso de que haya errores en algun comando e
 Con este comando nos aseguramos de que se borre cualquier descarga anterior de Cli, por si tenemos que ejecutar el script varias veces que no haya mas paquetes de los necesarios ocupando espacio.
 
 ````
-
 rm -rf /tmp/wp-cli.phar
-
 ````
 4. Descargamos el archivo wp-cli.phar
 
-
+Descargamos el ejecutable WP-CLI desde su repositorio oficial. 
 
 ````
-
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P /tmp
+````
+
+5. Asignamos permisos de ejecución al archivo
+
+Le asignamos a archivo permisos de ejecución para que pueda ejecutarse como un programa.
 
 ````
-#Asignamos permisos de ejecución al archivo 
 chmod +x /tmp/wp-cli.phar
+````
 
-#Movemos el script WP-CLI al directorio /usr/local/bin
+
+6. Movemos el script WP-CLI al directorio /usr/local/bin
+
+Movemos desde */tmp/wp-cli.phar* a  */usr/local/bin* renombradolo como **wp**, colocandolo en un directorio global. Esto nos permitira utilizar ````wp```` como si fuera un comando sin tener que usar la ruta completa */tmp/wp-cli.phar* cada vez que queramos usar WP-CLI. 
+
+
+````
 mv /tmp/wp-cli.phar /usr/local/bin/wp
+````
 
-#Borramos instalaciones previas en /var/www/html
 
+7. Borramos instalaciones previas en /var/www/html
+
+A continuación borraremos todos los archivos en el directorio donde se instalará Wordpress, asegurando que no queden archivos ni instalaciones anteriores que interfieran con la nueva instalación.
+
+````
 rm -rf $WORDPRESS_DIRECTORY*
+````
 
-# Descargamos el codigo fuente de Wordpress 
+8. Descargamos el codigo fuente de Wordpress 
 wp core download \
   --locale=es_ES \
   --path=$WORDPRESS_DIRECTORY \

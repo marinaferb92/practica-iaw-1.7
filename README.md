@@ -122,7 +122,7 @@ rm -rf $WORDPRESS_DIRECTORY*
 Utilizamos el comando wp para realizar la descargas los archivos prncipales de Wordpress.
 - *--locale=es_ES* indicamos que queremos descargar la versión en Español.
 
-  - Si quisieramos otro idioma, podemos usar otros códigos:
+  - Si quisieramos descagarlo en otro idioma, podemos usar otros códigos como:
 
       - <ins>Inglés: --locale=en_US<ins>
 
@@ -160,6 +160,20 @@ mysql -u root <<< "DROP USER IF EXISTS $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
 mysql -u root <<< "CREATE USER $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL IDENTIFIED BY '$WORDPRESS_DB_PASSWORD'"
 mysql -u root <<< "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME.* TO $WORDPRESS_DB_USER@$IP_CLIENTE_MYSQL"
 ````
+
+10. Configuración de WordPress
+
+A continuación, generaremos el archivo de configuración principal ``wp-config.php``, necesario para que Wordpress pueda conectarse a la base de datos.
+El archivo contendrá las configuraciones y credenciales básicas para que Wordpress interactue con MySQL.
+- <ins>dbname=$WORDPRESS_DB_NAME<ins>: Definimos el nombre de la base de datos 
+- <ins>dbuser=$WORDPRESS_DB_USER<ins>: Especificamos el usuario con permisos para la base de datos.
+- <ins>dbpass=$WORDPRESS_DB_PASSWORD<ins>: Definimos la contraseña de usuario de la base de datos.
+- <ins>dbhost=$WORDPRESS_DB_HOST<ins>: Define la ubicación del servidor de la base de datos.
+    - Localhost si MySQL esta en el mismo servidor Wordpress.
+    - Otra dirección IP si esta en un servidor remoto.
+- <ins>path=$WORDPRESS_DIRECTORY<ins>:Especifica el directorio donde se creará el archivo *wp-config.php*
+
+``
 wp config create \
   --dbname=$WORDPRESS_DB_NAME \
   --dbuser=$WORDPRESS_DB_USER \
@@ -167,6 +181,8 @@ wp config create \
   --dbhost=$WORDPRESS_DB_HOST \
   --path=$WORDPRESS_DIRECTORY \
   --allow-root
+ `` 
+11. Instalar WordPress
 
 wp core install \
   --url=$LE_DOMAIN \

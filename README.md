@@ -277,10 +277,25 @@ RewriteRule . /index.php [L]
 # END WordPress
 
 ````
-cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY
 
-### 20. damos permisos a www-data
-chown -R www-data:www-data /var/www/html
+En el script escribiremos el siguiente comando, que copiara el archivo desde `/htaccess/.htaccess` al directorio especificado en la variable *$WORDPRESS_DIRECTORY* donde esta instalado Wordpress:
+
+````
+cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY
+````
+
+### 20. Damos permisos a www-data
+
+Con este comando cambiamos el propietario y el grupo de todos los archivos y directorios dentro de /var/www/html al usuario *www-data*. Este usuario es el que utiliza el servidor web Apache para poder leer, escribir y ejecutar los archivos del sitio web.
+
+Además asegura que solo el servidor web tenga acceso directo.
+
+````
+chown -R www-data:www-data $WORDPRESS_DIRECTORY
+````
+
+
+## COMPROBACIONES
 
 
 

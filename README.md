@@ -173,15 +173,22 @@ El archivo contendrá las configuraciones y credenciales básicas para que Wordp
     - Otra dirección IP si esta en un servidor remoto.
 - <ins>path=$WORDPRESS_DIRECTORY</ins>:Especifica el directorio donde se creará el archivo *wp-config.php*
 
-``
+````
 wp config create \
+
   --dbname=$WORDPRESS_DB_NAME \
+  
   --dbuser=$WORDPRESS_DB_USER \
+  
   --dbpass=$WORDPRESS_DB_PASSWORD \
+  
   --dbhost=$WORDPRESS_DB_HOST \
+  
   --path=$WORDPRESS_DIRECTORY \
+  
   --allow-root
- `` 
+````
+  
 
  - Todas estas variables deberán estar definidas en nuestro archivo ``.env``.
    
@@ -198,16 +205,23 @@ A continuación, completaremos la instalación de Wordpress con las tablas neces
 
   -Estas variables estarán definidas dentro del archivo *.env*.
   
-``
+````
 wp core install \
+
   --url=$LE_DOMAIN \
+
   --title="$WORDPRESS_TITLE" \
+  
   --admin_user=$WORDPRESS_ADMIN_USER \
+  
   --admin_password=$WORDPRESS_ADMIN_PASS \
+  
   --admin_email=$WORDPRESS_ADMIN_EMAIL \
+  
   --path=$WORDPRESS_DIRECTORY \
+  
   --allow-root
-``
+````
 
 #intalamos un tema 
 wp theme install mindscape --activate --path=$WORDPRESS_DIRECTORY --allow-root

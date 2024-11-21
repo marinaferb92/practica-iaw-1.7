@@ -245,13 +245,38 @@ Utilice URLs más legibles como:
 
 ``https://ejemplo.com/nombre-de-la-entrada``
 
-*Esta estructura además es más facil de entender tambien para los motores de busqueda y mejora la posición en los resultados de busqueda en estos, al incluir palabras cavles en URL.*
+*Esta estructura además es más facil de entender tambien para los motores de busqueda y mejora la posición en los resultados de busqueda en estos, al incluir palabras claves en URL.*
 
 ``
 wp rewrite structure '/%postname%/'  --path=$WORDPRESS_DIRECTORY --allow-root
 ``
 
 ### 19. Copiamos el archivo .htaccess
+
+Creamos un directory *htacces* y dentro de este creamos un archivo de configuración *.htaccess* con la siguiente estructura:
+
+````
+# BEGIN WordPress
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+RewriteBase /
+
+RewriteRule ^index\.php$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . /index.php [L]
+
+</IfModule>
+
+# END WordPress
+
+````
 cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY
 
 ### 20. damos permisos a www-data

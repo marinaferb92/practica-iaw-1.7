@@ -7,7 +7,9 @@ En esta práctica vamos a instalar y cofigurar la utilidad WP-CLI desde terminal
 Con ella podemos administrar muchas de las tareas de Wordpress sin usar un navegador web como: actualizar e instalar pluggings, cambiar los temas de la pagina, configurar instalaciones multisitios, etc.
 
 En la web oficial de Wordpress estan disponibles tanto el manual de uso, como el de comandos de WP-CLI.
+
 [MANUAL DE USO](https://make.wordpress.org/cli/handbook/)
+
 [GUÍA DE COMANDOS](https://developer.wordpress.org/cli/commands/)
 
 - Para ello el primer paso sera el de instalar la pila LAMP y configurar el Certificado SSL/TLS con Let’s Encrypt en la maquina donde vayamos a instalar WP-CLI.

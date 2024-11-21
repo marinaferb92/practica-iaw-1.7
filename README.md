@@ -165,13 +165,13 @@ mysql -u root <<< "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME.* TO $WORDPRESS_DB
 
 A continuación, generaremos el archivo de configuración principal ``wp-config.php``, necesario para que Wordpress pueda conectarse a la base de datos.
 El archivo contendrá las configuraciones y credenciales básicas para que Wordpress interactue con MySQL.
-- <ins>dbname=$WORDPRESS_DB_NAME<ins>: Definimos el nombre de la base de datos 
+- <ins>dbname=$WORDPRESS_DB_NAME<ins> : Definimos el nombre de la base de datos 
 - <ins>dbuser=$WORDPRESS_DB_USER<ins>: Especificamos el usuario con permisos para la base de datos.
-- <ins>dbpass=$WORDPRESS_DB_PASSWORD<ins>: Definimos la contraseña de usuario de la base de datos.
-- <ins>dbhost=$WORDPRESS_DB_HOST<ins>: Define la ubicación del servidor de la base de datos.
+- <ins>dbpass=$WORDPRESS_DB_PASSWORD<ins> : Definimos la contraseña de usuario de la base de datos.
+- <ins>dbhost=$WORDPRESS_DB_HOST<ins> : Define la ubicación del servidor de la base de datos.
     - Localhost si MySQL esta en el mismo servidor Wordpress.
     - Otra dirección IP si esta en un servidor remoto.
-- <ins>path=$WORDPRESS_DIRECTORY<ins>:Especifica el directorio donde se creará el archivo *wp-config.php*
+- <ins>path=$WORDPRESS_DIRECTORY<ins> :Especifica el directorio donde se creará el archivo *wp-config.php*
 
 ``
 wp config create \

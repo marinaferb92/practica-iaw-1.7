@@ -121,10 +121,15 @@ rm -rf $WORDPRESS_DIRECTORY*
 
 Utilizamos el comando wp para realizar la descargas los archivos prncipales de Wordpress.
 - *--locale=es_ES* indicamos que queremos descargar la versión en Español.
+
 Si quisieramos otro idioma, podemos usar otros códigos:
-Inglés (predeterminado): --locale=en_US
-Francés: --locale=fr_FR
-Alemán: --locale=de_DE
+
+<ins>Inglés: --locale=en_US<ins>
+
+<ins>Francés: --locale=fr_FR<ins>
+
+<ins>Alemán: --locale=de_DE<ins>
+
 - path=$WORDPRESS_DIRECTORY indicamos que queremos descargar Wordpress en la ruta $WORDPRESS_DIRECTORY, variable que estará definida en el archivo .env.
 - *allow-root* indicamos que permitimos ejecutar Wordpress con el usuario root.
 

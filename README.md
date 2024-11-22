@@ -228,14 +228,57 @@ wp core install \
   --allow-root
 ````
 
-#intalamos un tema 
-wp theme install mindscape --activate --path=$WORDPRESS_DIRECTORY --allow-root
+### 12. Instalamos un tema 
 
-#instalamos un plugging
+Ddesde la linea de comandos, ejecutamos ``wp theme list`` para ver los temas disponibles para Wordpress.
+
+Una vez que hemos elegido uno ejecutamos el siguiente comando teniendo en cuenta el nombre (name) del tema que hemos elegido.
+````
+wp theme install twentytwentyfive --activate --path=$WORDPRESS_DIRECTORY --allow-root
+````
+### 13. Instalamos y configuramos el plugging wps-hide-login 
+
+Este plugging nos permite mejorar la seguridad de nuestro sitio web al cambiar la URL de inico de sesión predeterminado por Wordpress, por defecto cualquier usuario podria acceder a la pagina de inicio de sesión de Wordpress añadiendo ``/wp-login.php `` o ``/wp-admin``. Con el siguiente comando instalaremos el plugging y lo activaremos:
+
+``
 wp plugin install wps-hide-login --activate --path=$WORDPRESS_DIRECTORY --allow-root
+``
+A continuación tendremos que configurarlo para ponerle la URL que queremos para reemplazar la predeterminada, esto lo haremos definiendo una nueva variable en `.env` a la que llamaremos ``WORDPRESS_HIDE_LOGIN_URL``, donde pondremos el valor que queremos.
 
-#configuramos el plugging
+``
 wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTORY --allow-root
+``
+
+### 13. Instalar y activamos el plugging Wordfence
+
+Wordfence es una herramienta de seguridad que incuye un firewall, proteccion contra ataques de fuerza bruta, escaneo de malware, etc. Podemos Instalarla y activarla con el siguiente comando:
+
+``
+wp plugin install wordfence --activate --path=$WORDPRESS_DIRECTORY --allow-root
+``
+
+### 14. Configuraciones de Wordfence.
+
+Una vez instalado podremos configurarlo graficamente desde Wordpress, aunque tambien podemos activar muchas de sus funcionalidades desde la linea de comandos.
+
+- Habilitar el firewall
+``
+wp wordfence firewall enable --allow-root
+``
+# Forzar una actualización de reglas
+wp wordfence update rules --allow-root
+
+# Configurar escaneos automáticos diarios
+wp wordfence config set scanFrequency daily --allow-root
+
+# Configurar alertas por correo electrónico
+wp wordfence config set alertEmails $WORDPRESS_ADMIN_EMAIL --allow-root
+
+# Activar bloqueo de IP tras intentos fallidos
+wp wordfence config set bruteForceAttempts 5 --allow-root
+
+# Habilitar actualizaciones automáticas del plugin
+wp plugin auto-updates enable wordfence --allow-root
 
 ### 18. Configurar los enlaces permanentes con el nombre de las entradas
 

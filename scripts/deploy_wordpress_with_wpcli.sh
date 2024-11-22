@@ -66,26 +66,8 @@ wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTOR
 # Instalar y activar Wordfence
 wp plugin install wordfence --activate --path=$WORDPRESS_DIRECTORY --allow-root
 
-# Habilitar el firewall
-wp wordfence firewall enable --allow-root
-
-# Forzar una actualización de reglas
-wp wordfence update rules --allow-root
-
-# Configurar escaneos automáticos diarios
-wp wordfence config set scanFrequency daily --allow-root
-
-# Configurar alertas por correo electrónico
-wp wordfence config set alertEmails $WORDPRESS_ADMIN_EMAIL --allow-root
-
-# Activar bloqueo de IP tras intentos fallidos
-wp wordfence config set bruteForceAttempts 5 --allow-root
-
-# Habilitar actualizaciones automáticas del plugin
-wp plugin auto-updates enable wordfence --allow-root
-
 #configurar los enlaces permanentes con el nombre de las entradas
-wp rewrite structure '/%postname%/'  --path=$WORDPRESS_DIRECTORY --allow-root
+wp rewrite structure '/%postname%/' --path=$WORDPRESS_DIRECTORY --allow-root
 
 #Copiamos el archivo .htaccess
 cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY

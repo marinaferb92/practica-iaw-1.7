@@ -232,10 +232,25 @@ wp core install \
 
 Ddesde la linea de comandos, ejecutamos ``wp theme list`` para ver los temas disponibles para Wordpress.
 
+Hay una lista con los temas que tenemos disponibles. 
+
+![ehil3cGFEa](https://github.com/user-attachments/assets/1b5d9269-cc58-4bad-b042-f8622d1fa786)
+
+
 Una vez que hemos elegido uno ejecutamos el siguiente comando teniendo en cuenta el nombre (name) del tema que hemos elegido.
 ````
 wp theme install twentytwentytwo --activate --path=$WORDPRESS_DIRECTORY --allow-root
 ````
+
+El tema ha cambiado al entrar a Wordpress
+
+![3KexUxe7WX](https://github.com/user-attachments/assets/ebb9324c-dbe4-4295-a227-9dcfe8695a84)
+
+Tambien se puede comprbar desde las configuraciones.
+
+![iat0ghqa9a](https://github.com/user-attachments/assets/a3141ffb-0550-4260-a79f-989221163ac2)
+
+
 ### 13. Instalamos y configuramos el plugging wps-hide-login 
 
 Este plugging nos permite mejorar la seguridad de nuestro sitio web al cambiar la URL de inico de sesión predeterminado por Wordpress, por defecto cualquier usuario podria acceder a la pagina de inicio de sesión de Wordpress añadiendo ``/wp-login.php `` o ``/wp-admin``. Con el siguiente comando instalaremos el plugging y lo activaremos:
@@ -243,11 +258,17 @@ Este plugging nos permite mejorar la seguridad de nuestro sitio web al cambiar l
 ``
 wp plugin install wps-hide-login --activate --path=$WORDPRESS_DIRECTORY --allow-root
 ``
+
+
 A continuación tendremos que configurarlo para ponerle la URL que queremos para reemplazar la predeterminada, esto lo haremos definiendo una nueva variable en `.env` a la que llamaremos ``WORDPRESS_HIDE_LOGIN_URL``, donde pondremos el valor que queremos.
 
 ``
 wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTORY --allow-root
 ``
+
+Al entrar en la ruta que hemos definido comprobamos que ha cambiado correcctamente
+
+![zves5XmWO9](https://github.com/user-attachments/assets/9a51125d-e821-4101-8eee-3d8c74902196)
 
 ### 13. Instalar y activamos el plugging Wordfence
 
@@ -257,13 +278,10 @@ Wordfence es una herramienta de seguridad que incuye un firewall, proteccion con
 wp plugin install wordfence --activate --path=$WORDPRESS_DIRECTORY --allow-root
 ``
 
-### 14. Configuraciones de Wordfence.
-
-Una vez instalado podremos configurarlo graficamente desde Wordpress, aunque tambien podemos activar muchas de sus funcionalidades desde la linea de comandos.
+![ViHaYFwIDr](https://github.com/user-attachments/assets/feda1933-3e34-465f-9c1d-72fe34c165ac)
 
 
-
-### 18. Configurar los enlaces permanentes con el nombre de las entradas
+### 14. Configurar los enlaces permanentes con el nombre de las entradas
 
 Configuramos la estructura de los enlaces permanentes (URLs) de Wordpress para que usen el nombre de las entradas (*postname*). Para que el sitio en vez de tener URLs tipo:
 
@@ -279,7 +297,18 @@ Utilice URLs más legibles como:
 wp rewrite structure '/%postname%/'  --path=$WORDPRESS_DIRECTORY --allow-root
 ``
 
-### 19. Copiamos el archivo .htaccess
+
+Desde Wordpress entrando en ajustes podemos ver que efectivamente se ha cambiado a %postname%
+
+![9JLjsEVI1q](https://github.com/user-attachments/assets/a44a73e0-9707-4dee-9b5d-a57b42768b74)
+
+Entrando en una de las entradas del blog vemos como ahora aparece el encabezado de esta como parte de la URL
+
+![YE4WpgBtt3](https://github.com/user-attachments/assets/957b444d-4c66-4285-aad5-11a5e31341bc)
+
+
+
+### 15. Copiamos el archivo .htaccess
 
 Creamos un directory *htacces* y dentro de este creamos un archivo de configuración *.htaccess* con la siguiente estructura:
 
@@ -312,7 +341,7 @@ En el script escribiremos el siguiente comando, que copiara el archivo desde `/h
 cp ../htaccess/.htaccess $WORDPRESS_DIRECTORY
 ````
 
-### 20. Damos permisos a www-data
+### 16. Damos permisos a www-data
 
 Con este comando cambiamos el propietario y el grupo de todos los archivos y directorios dentro de /var/www/html al usuario *www-data*. Este usuario es el que utiliza el servidor web Apache para poder leer, escribir y ejecutar los archivos del sitio web.
 
@@ -323,7 +352,6 @@ chown -R www-data:www-data $WORDPRESS_DIRECTORY
 ````
 
 
-## COMPROBACIONES
 
 
 

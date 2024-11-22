@@ -234,7 +234,7 @@ Ddesde la linea de comandos, ejecutamos ``wp theme list`` para ver los temas dis
 
 Una vez que hemos elegido uno ejecutamos el siguiente comando teniendo en cuenta el nombre (name) del tema que hemos elegido.
 ````
-wp theme install twentytwentyfive --activate --path=$WORDPRESS_DIRECTORY --allow-root
+wp theme install twentytwentytwo --activate --path=$WORDPRESS_DIRECTORY --allow-root
 ````
 ### 13. Instalamos y configuramos el plugging wps-hide-login 
 
@@ -261,24 +261,7 @@ wp plugin install wordfence --activate --path=$WORDPRESS_DIRECTORY --allow-root
 
 Una vez instalado podremos configurarlo graficamente desde Wordpress, aunque tambien podemos activar muchas de sus funcionalidades desde la linea de comandos.
 
-- Habilitar el firewall
-``
-wp wordfence firewall enable --allow-root
-``
-# Forzar una actualización de reglas
-wp wordfence update rules --allow-root
 
-# Configurar escaneos automáticos diarios
-wp wordfence config set scanFrequency daily --allow-root
-
-# Configurar alertas por correo electrónico
-wp wordfence config set alertEmails $WORDPRESS_ADMIN_EMAIL --allow-root
-
-# Activar bloqueo de IP tras intentos fallidos
-wp wordfence config set bruteForceAttempts 5 --allow-root
-
-# Habilitar actualizaciones automáticas del plugin
-wp plugin auto-updates enable wordfence --allow-root
 
 ### 18. Configurar los enlaces permanentes con el nombre de las entradas
 

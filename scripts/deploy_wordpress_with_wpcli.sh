@@ -55,7 +55,7 @@ wp core install \
   --allow-root
 
 #intalamos un tema 
-wp theme install mindscape --activate --path=$WORDPRESS_DIRECTORY --allow-root
+wp theme install twentytwentyfive --activate --path=$WORDPRESS_DIRECTORY --allow-root
 
 #instalamos el plugging wps-hide-login
 wp plugin install wps-hide-login --activate --path=$WORDPRESS_DIRECTORY --allow-root

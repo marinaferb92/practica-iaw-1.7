@@ -57,14 +57,14 @@ wp core install \
 #intalamos un tema 
 wp theme install mindscape --activate --path=$WORDPRESS_DIRECTORY --allow-root
 
-#instalamos un plugging
+#instalamos el plugging wps-hide-login
 wp plugin install wps-hide-login --activate --path=$WORDPRESS_DIRECTORY --allow-root
 
-#configuramos el plugging
+#configuramos el plugging wps-hide-login
 wp option update whl_page "$WORDPRESS_HIDE_LOGIN_URL" --path=$WORDPRESS_DIRECTORY --allow-root
 
 # Instalar y activar Wordfence
-wp plugin install wordfence --activate --allow-root
+wp plugin install wordfence --activate --path=$WORDPRESS_DIRECTORY --allow-root
 
 # Habilitar el firewall
 wp wordfence firewall enable --allow-root

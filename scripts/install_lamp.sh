@@ -19,7 +19,7 @@ a2enmod rewrite
 apt install php libapache2-mod-php php-mysql -y
 
 # Copiamos el archivo de configuración de Apache
-# Asegúrate de que la ruta sea correcta; "sites-available" debe ser el nombre correcto.
+
 cp ../conf/000-default.conf /etc/apache2/sites-available/
 
 # Instalamos MySQL
